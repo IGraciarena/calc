@@ -1,23 +1,66 @@
-import logo from './logo.svg';
-import './App.css';
+import { evaluate } from "mathjs";
+import { useState } from "react";
+import Button from "./components/Button";
+import ClearButton from "./components/ClearButton";
+import Input from "./components/Input";
+import freeCodeCampLogo from "./images/freecodecamp-logo.png";
+import "./style-sheets/App.css";
 
 function App() {
+  const [input, setInput] = useState("");
+
+  const addInput = (val) => {
+    setInput(input + val);
+  };
+
+  const getResult = () => {
+    if (!input) {
+      alert("Please insert values to do math calculations.");
+    }
+    setInput(evaluate(input));
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="freecodecamp-logo-container">
+        <img
+          className="freecodecamp-logo"
+          src={freeCodeCampLogo}
+          alt="FreeCodeCamp Logo"
+        />
+      </div>
+      <div className="calc-container">
+        <div className="row">
+          <Input input={input}></Input>
+        </div>
+        <div className="row">
+          <Button handleClick={addInput}>1</Button>
+          <Button handleClick={addInput}>2</Button>
+          <Button handleClick={addInput}>3</Button>
+          <Button handleClick={addInput}>+</Button>
+        </div>
+        <div className="row">
+          <Button handleClick={addInput}>4</Button>
+          <Button handleClick={addInput}>5</Button>
+          <Button handleClick={addInput}>6</Button>
+          <Button handleClick={addInput}>-</Button>
+        </div>
+        <div className="row">
+          <Button handleClick={addInput}>7</Button>
+          <Button handleClick={addInput}>8</Button>
+          <Button handleClick={addInput}>9</Button>
+          <Button handleClick={addInput}>*</Button>
+        </div>
+        <div className="row">
+          <Button handleClick={getResult}>=</Button>
+          <Button handleClick={addInput}>0</Button>
+          <Button handleClick={addInput}>.</Button>
+          <Button handleClick={addInput}>/</Button>
+        </div>
+        <div className="row">
+          <ClearButton handleClear={() => setInput("")}>Clear</ClearButton>
+        </div>
+      </div>
     </div>
   );
 }
